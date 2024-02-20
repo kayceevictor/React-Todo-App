@@ -2,6 +2,7 @@ import TodoForm from "./TodoForm";
 import { useEffect, useState } from "react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { FaCheck } from "react-icons/fa";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -18,6 +19,27 @@ const TodoList = () => {
     ];
     setTodos(newTodo);
   };
+
+  const deleteTodos = (id) => {
+    const newList = [...todos].filter((todo) => todo.id !== id)
+    setTodos(newList) 
+  }
+
+
+  const completeTodo = (todoNaame) => {
+    const completedTodods = [...todos].map((todo) => {
+      const Itodo = todo.todo === todoNaame;
+      if(Itodo) {
+        return {
+       ...todo,
+          completed: true,
+        };
+      }
+      return todo
+    })
+
+    setTodos(completedTodods)
+  }
 
   useEffect(() => {
     let mounted = true;
@@ -36,20 +58,28 @@ const TodoList = () => {
 
       <div className="globalTodoWrapper">
         {!renderTodos || renderTodos.length === 0 ? (
-          <div>Your Todo List is empty</div>
+          <div className="notifyTodo">Your Todo List is empty</div>
         ) : (
           <>
-            {renderTodos.map((item, index) => (
-              <ul key={index} className="todoItem">
-                <span>
-                  <AiOutlineCheckCircle />
+            {renderTodos.map((todo, index) => (
+              <ul key={index} className={`todoItem ${todo.completed && "todoCompleted"}`}>
+                <span 
+                className={`completeTodo ${todo.completed && "active"}`}
+                onClick={() =>completeTodo(todo.todo)}
+                >
+                  {
+                    todo.completed ?  <FaCheck/> : <AiOutlineCheckCircle /> 
+                  }
                 </span>
                 <li>
-                  {index + 1}. {item.todo}
+                  {index + 1}. {todo.todo}
                 </li>
-                <button className="closeButton">
+                <button
+                onClick={() => deleteTodos(todo.id)}
+                 className="closeButton">
                   <IoIosCloseCircleOutline className="closeButton" />
                 </button>
+
               </ul>
             ))}
           </>

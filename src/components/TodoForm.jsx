@@ -9,13 +9,17 @@ const TodoForm = ({ addTodos }) => {
   };
 
   const handleSubmit = (event) => {
+    if (value.trim() === "") {
+      return
+    }
+
     event.preventDefault();
     addTodos(value);
     setValue("");
   };
 
   return (
-    <form onClick={handleSubmit} className="todoForm">
+    <form onSubmit={handleSubmit} className="todoForm">
       <input
         type="text"
         className="todoFormInput"
@@ -23,11 +27,12 @@ const TodoForm = ({ addTodos }) => {
         value={value}
         onChange={handleChange}
         autoFocus
-        required
+        // required
+        // console.log(todoFormInput.trim());'todoForm'
       />
-      <button
-      type="submit"
-       className="addTodoButton">Add Todo</button>
+      <button type="submit" className="addTodoButton">
+        Add Todo
+      </button>
     </form>
   );
 };

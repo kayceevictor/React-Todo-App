@@ -121,3 +121,27 @@ body {
   border: none;
   color: red;
 }
+
+.globalTodoWrapper .notifyTodo {
+  color: #ffffff;
+  text-align: center;
+  padding: 100px;
+  font-size: 30px;
+}
+
+
+.completeTodo{
+  cursor: pointer;
+  font-size: 20px;
+  transition: color 0.3s ease-in-out;
+}
+
+.completeTodo.active{
+  color: green;
+}
+
+
+.todoCompleted{
+  text-decoration: line-through;
+  color: #eaeaf1;
+}
