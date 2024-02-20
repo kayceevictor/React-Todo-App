@@ -26,9 +26,9 @@ const TodoList = () => {
   }
 
 
-  const completeTodo = (todoNaame) => {
+  const completeTodo = (todoName) => {
     const completedTodods = [...todos].map((todo) => {
-      const Itodo = todo.todo === todoNaame;
+      const Itodo = todo.todo === todoName;
       if(Itodo) {
         return {
        ...todo,
